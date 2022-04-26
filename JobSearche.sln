@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{508DC11E-A904-4966-AA11-4148CC449477}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBot", "TelegramBot\TelegramBot.csproj", "{BCA0DBEE-06B6-46BF-8333-45DD090CC48E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{508DC11E-A904-4966-AA11-4148CC449477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{508DC11E-A904-4966-AA11-4148CC449477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{508DC11E-A904-4966-AA11-4148CC449477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{508DC11E-A904-4966-AA11-4148CC449477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCA0DBEE-06B6-46BF-8333-45DD090CC48E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCA0DBEE-06B6-46BF-8333-45DD090CC48E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCA0DBEE-06B6-46BF-8333-45DD090CC48E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCA0DBEE-06B6-46BF-8333-45DD090CC48E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
