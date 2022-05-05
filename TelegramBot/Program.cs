@@ -9,7 +9,8 @@ using Telegram.Bot.Exceptions;
 using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;using Telegram.Bot.Types.ReplyMarkups;
-
+using TelegramBot.DataBase;
+using model = TelegramBot.DataBase.Models;
 
 var botClient = new TelegramBotClient("5179375578:AAHgamcmzMRG1M39RFvGPglgXKxuD44lGd8");
 using var cts = new CancellationTokenSource();
@@ -25,8 +26,6 @@ botClient.StartReceiving(
     );
 var message = botClient.GetMeAsync();
 
-
-Console.WriteLine($"Start listening for @{message.Id}");
 Console.ReadLine();
 
 cts.Cancel();
@@ -60,6 +59,7 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
             text: lastName + " said:\n" + messageText,
             replyMarkup: GetButtons(),
             cancellationToken: cancellationToken);
+        GetInlineButtons();
     }
     catch (ApiRequestException e)
     {
@@ -88,9 +88,9 @@ IReplyMarkup GetButtons()
         new KeyboardButton[] { },
     })
     {
-        ResizeKeyboard = true,
-        
+        ResizeKeyboard = true
     };
+    
     return replyKeyboardMarkup;
 }
 IReplyMarkup GetInlineButtons()
@@ -114,4 +114,23 @@ IReplyMarkup GetInlineButtons()
     return inlineKeyboard;
 }
 
-Console.WriteLine("Hello, World!");
+using (TelegramBotContext db = new TelegramBotContext())
+{
+    // создаем два объекта User
+    var tom = new model.User { BotUserId = 6541654, Email = "email@first.ru" };
+    var alice = new model.User { BotUserId = 99494, Email = "email@second.ru" };
+ 
+    // добавляем их в бд
+    db.Users.Add(tom);
+    db.Users.Add(alice);
+    db.SaveChanges();
+    Console.WriteLine("Объекты успешно сохранены");
+ 
+    // получаем объекты из бд и выводим на консоль
+    var users = db.Users.ToList();
+    Console.WriteLine("Список объектов:");
+    foreach (model.User u in users)
+    {
+        Console.WriteLine($"{u.Id}.{u.BotUserId} - {u.Email}");
+    }
+}
