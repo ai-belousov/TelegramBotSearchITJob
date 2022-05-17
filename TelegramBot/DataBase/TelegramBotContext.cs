@@ -10,8 +10,8 @@ public sealed class TelegramBotContext : DbContext
     {
         Database.EnsureCreated();
     }
-    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    // {
-    //     optionsBuilder.UseNpgsql(_connectionString);
-    // }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.LogTo(message => System.Diagnostics.Debug.WriteLine(message)); // логирование в Debag Output
+    }
 }
