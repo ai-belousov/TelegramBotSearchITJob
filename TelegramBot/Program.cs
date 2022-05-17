@@ -13,8 +13,22 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;using Telegram.Bot.Types.ReplyMarkups;
 using TelegramBot.DataBase;
 using model = TelegramBot.DataBase.Models;
+using Microsoft.Extensions.Configuration;
+ 
+var builder = new ConfigurationBuilder();
 
-var botClient = new TelegramBotClient("5179375578:AAHgamcmzMRG1M39RFvGPglgXKxuD44lGd8");
+builder.SetBasePath(Directory.GetCurrentDirectory()); // установка пути к текущему каталогу
+builder.AddJsonFile("appSettings.json"); // получаем конфигурацию из файла appsettings.json
+var config = builder.Build(); // создаем конфигурацию
+string connectionString = config.GetConnectionString("DefaultConnection"); // получаем строку подключения
+var optionsBuilder = new DbContextOptionsBuilder<TelegramBotContext>();
+var options = optionsBuilder.UseNpgsql(connectionString).Options;
+
+string token = config.GetSection("TelegramBot").GetRequiredSection("Token").Value; // получаем ключ для телеграм бота
+
+
+// инициализация Бота
+var botClient = new TelegramBotClient(token);
 using var cts = new CancellationTokenSource();
 var receiverOptions = new ReceiverOptions
 {
@@ -30,7 +44,7 @@ var message = botClient.GetMeAsync();
 
 Console.ReadLine();
 
-cts.Cancel();
+cts.Cancel(); // выключае бота по завершению
 
 async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
 {
@@ -115,8 +129,6 @@ IReplyMarkup GetInlineButtons()
 
     return inlineKeyboard;
 }
-var optionsBuilder = new DbContextOptionsBuilder<TelegramBotContext>();
-var options = optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=telegram_bot;Username=postgres;Password=admin").Options;
 
 using (TelegramBotContext db = new TelegramBotContext(options))
 {
