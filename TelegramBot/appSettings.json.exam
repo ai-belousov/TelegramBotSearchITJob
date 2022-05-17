@@ -1,0 +1,10 @@
+﻿{
+  "DB" : {
+    "ConnectionStrings": {
+      "DefaultConnection": ""
+    }
+  },
+  "TelegramBot": {
+    "token" : ""
+  }
+}

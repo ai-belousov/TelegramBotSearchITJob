@@ -1,4 +1,6 @@
 ﻿// using System;
+
+using Microsoft.EntityFrameworkCore;
 using Telegram.Bot;
 // using System.Collections.Generic;
 // using System.Text;
@@ -113,8 +115,10 @@ IReplyMarkup GetInlineButtons()
 
     return inlineKeyboard;
 }
+var optionsBuilder = new DbContextOptionsBuilder<TelegramBotContext>();
+var options = optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=telegram_bot;Username=postgres;Password=admin").Options;
 
-using (TelegramBotContext db = new TelegramBotContext())
+using (TelegramBotContext db = new TelegramBotContext(options))
 {
     // создаем два объекта User
     var tom = new model.User { BotUserId = 6541654, Email = "email@first.ru" };
@@ -124,6 +128,12 @@ using (TelegramBotContext db = new TelegramBotContext())
     db.Users.Add(tom);
     db.Users.Add(alice);
     db.SaveChanges();
+    
+    // Еще один метод, который стоит отметить, это Database.CanConnect()
+    // и его асинхронная версия Database.CanConnectAsync().
+    // Данный метод возвращает true, если бд доступна, и false, если бд не доступна
+    db.Database.CanConnect();
+    
     Console.WriteLine("Объекты успешно сохранены");
  
     // получаем объекты из бд и выводим на консоль
