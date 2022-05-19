@@ -14,15 +14,37 @@ using Telegram.Bot.Types.Enums;using Telegram.Bot.Types.ReplyMarkups;
 using TelegramBot.DataBase;
 using model = TelegramBot.DataBase.Models;
 using Microsoft.Extensions.Configuration;
- 
-var builder = new ConfigurationBuilder();
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-builder.SetBasePath(Directory.GetCurrentDirectory()); // установка пути к текущему каталогу
-builder.AddJsonFile("appSettings.json"); // получаем конфигурацию из файла appsettings.json
-var config = builder.Build(); // создаем конфигурацию
-string connectionString = config.GetConnectionString("DefaultConnection"); // получаем строку подключения
-var optionsBuilder = new DbContextOptionsBuilder<TelegramBotContext>();
-var options = optionsBuilder.UseNpgsql(connectionString).Options;
+var config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
+// builder.SetBasePath(Directory.GetCurrentDirectory()); // установка пути к текущему каталогу
+// builder.AddJsonFile("appSettings.json"); // получаем конфигурацию из файла appsettings.json
+// var config = builder.Build(); // создаем конфигурацию
+
+IHost hostBuilder = Host.CreateDefaultBuilder(args)
+    .ConfigureServices(services =>
+    {
+        services
+            .AddDbContext<TelegramBotContext>(options =>
+                options.UseNpgsql(config.GetConnectionString("DefaultConnection")));
+    }).Build();
+
+// static void Main(string[] args)
+//     => CreateHostBuilder(args).Build().Run();
+//
+//
+// // EF Core uses this method at design time to access the DbContext
+// static IHostBuilder CreateHostBuilder(string[] args)
+//     => Host.CreateDefaultBuilder(args)
+//         .ConfigureHostConfiguration(
+//             webBuilder => webBuilder.UseStartup<Startup>());
+
+
+
+// string connectionString = config.GetConnectionString("DefaultConnection"); // получаем строку подключения
+// var optionsBuilder = new DbContextOptionsBuilder<TelegramBotContext>();
+// var options = optionsBuilder.UseNpgsql(connectionString).Options;
 
 string token = config.GetSection("TelegramBot").GetRequiredSection("Token").Value; // получаем ключ для телеграм бота
 
@@ -42,7 +64,7 @@ botClient.StartReceiving(
     );
 var message = botClient.GetMeAsync();
 
-Console.ReadLine();
+// Console.ReadLine();
 
 cts.Cancel(); // выключае бота по завершению
 
@@ -130,29 +152,18 @@ IReplyMarkup GetInlineButtons()
     return inlineKeyboard;
 }
 
-using (TelegramBotContext db = new TelegramBotContext(options))
-{
-    // создаем два объекта User
-    var tom = new model.User { BotUserId = 6541654, Email = "email@first.ru" };
-    var alice = new model.User { BotUserId = 99494, Email = "email@second.ru" };
-
-    // добавляем их в бд
-    db.Users.Add(tom);
-    db.Users.Add(alice);
-    db.SaveChanges();
-
-    // Еще один метод, который стоит отметить, это Database.CanConnect()
-    // и его асинхронная версия Database.CanConnectAsync().
-    // Данный метод возвращает true, если бд доступна, и false, если бд не доступна
-    db.Database.CanConnect();
-
-    Console.WriteLine("Объекты успешно сохранены");
-
-    // получаем объекты из бд и выводим на консоль
-    var users = db.Users.ToList();
-    Console.WriteLine("Список объектов:");
-    foreach (model.User u in users)
-    {
-        Console.WriteLine($"{u.Id}.{u.BotUserId} - {u.Email}");
-    }
-}
+// var tom = new model.User { BotUserId = 6541654, Email = "email@first.ru" };
+// var alice = new model.User { BotUserId = 99494, Email = "email@second.ru" };
+//
+// var b = hostBuilder.Build().Services.GetRequiredService<TelegramBotContext>();
+// var users = b.Users;
+//
+// users.Add(tom);
+// users.Add(alice);
+//
+// b.SaveChanges();
+//
+// foreach (model.User user in users)
+// {
+//     Console.WriteLine($"{user.Id}.{user.BotUserId} - {user.Email}");
+// }
