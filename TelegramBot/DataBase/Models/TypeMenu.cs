@@ -10,15 +10,20 @@ public class TypeMenu
 {
     public int Id { get; set; }
     public string Name { get; set; }
+    public List<Menu> Menus { get; set; }
     
     public void Configure(EntityTypeBuilder<TypeMenu> builder)
     {
+        builder                    
+            .HasKey(tm => tm.Id);
         builder
-            .HasKey(b => b.Id);
+            .Property(tm => tm.Id)
+            .HasColumnName("id");
         builder
-            .Property(b => b.Name)
+            .Property(tm => tm.Name)
             .HasColumnName("name")
             .IsRequired(false)
             .HasComment("Тип меню");
+        builder.ToTable("type_menu");
     }
 }

@@ -13,7 +13,6 @@ public sealed class TelegramBotContext : DbContext
     public DbSet<TypeMenu> TypeMenus => Set<TypeMenu>();
     public DbSet<Bot> Bots => Set<Bot>();
     public DbSet<Menu> Menus => Set<Menu>();
-    
     public DbSet<UserSettings> UsersSettings => Set<UserSettings>();
 
     public TelegramBotContext(DbContextOptions<TelegramBotContext> options) : base(options)

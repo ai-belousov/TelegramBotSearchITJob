@@ -5,26 +5,31 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace TelegramBot.DataBase.Models;
 
 [Table("bot")]
+[Comment("Телеграм боты")]
 public class Bot
 {
     public int Id { get; set; }
-    public int BotId { get; set; }
+    public int TelegramBotId { get; set; }
     public string Name { get; set; }
-    
+    public List<Menu> Menus { get; set; }
+
     public void Configure(EntityTypeBuilder<Bot> builder)
     {
         #region Настройка полей
-        builder
+        builder                    
             .HasKey(b => b.Id);
+        builder
+            .Property(b => b.Id)
+            .HasColumnName("id");
         builder
             .Property(b => b.Name)
             .HasColumnName("name")
             .IsRequired(false)
             .HasComment("Название бота");
         builder
-            .Property(b => b.BotId)
-            .HasColumnName("user_bot_id")
-            .HasComment("Пользователи телеграм");
+            .Property(b => b.TelegramBotId)
+            .HasColumnName("telegram_bot_id")
+            .HasComment("id телеграм бота");
         #endregion
     }
 }

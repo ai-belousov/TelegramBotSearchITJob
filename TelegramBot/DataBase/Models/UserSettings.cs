@@ -8,20 +8,36 @@ namespace TelegramBot.DataBase.Models;
 [Comment("Настройки пользователей")]
 public partial class UserSettings
 {
-    public int Id { get; set; }
     public int UserId { get; set; }
+    public User User { get; set; }
     public int MenuId { get; set; }
+    public Menu Menu { get; set; }
+    public int CreatedAt { get; set; }
 
     public void Configure(EntityTypeBuilder<UserSettings> builder)
     {
         builder
-            .HasKey(us => us.Id);
+            .HasKey(us => new { us.MenuId, us.UserId });
         builder
             .Property(us => us.UserId)
-            .IsRequired()
-            .HasColumnName("user_settings")
-            .HasComment("id пользователя");
+            .HasColumnName("user_id");
         builder
-            .Property(us => us.MenuId);
+            .Property(us => us.MenuId)
+            .HasColumnName("menu_id");
+        builder
+            .Property(us => us.CreatedAt)
+            .HasColumnName("created_at")
+            .HasComment("Дата создания")
+            .HasDefaultValue(new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds());
+
+        builder
+            .HasOne(us => us.User)
+            .WithMany(u => u.UserSettingsList)
+            .HasForeignKey(us => us.UserId);
+        builder
+            .HasOne(us => us.Menu)
+            .WithMany(m => m.UserSettingsList)
+            .HasForeignKey(us => us.MenuId);
+        
     }
 }
