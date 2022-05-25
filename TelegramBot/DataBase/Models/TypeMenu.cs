@@ -25,5 +25,13 @@ public class TypeMenu
             .IsRequired(false)
             .HasComment("Тип меню");
         builder.ToTable("type_menu");
+        
+        List<TypeMenu> typeMenusList = new List<TypeMenu>();
+        
+        typeMenusList.Add(new TypeMenu{Id = 1, Name = "Специальность"});
+        typeMenusList.Add(new TypeMenu{Id = 2, Name = "Формат работы"});
+        typeMenusList.Add(new TypeMenu{Id = 3, Name = "Зарплата"});
+        
+        builder.HasData(typeMenusList);
     }
 }

@@ -12,7 +12,7 @@ public partial class UserSettings
     public User User { get; set; }
     public int MenuId { get; set; }
     public Menu Menu { get; set; }
-    public int CreatedAt { get; set; }
+    public DateTime  CreatedTimestamp  { get; set; }
 
     public void Configure(EntityTypeBuilder<UserSettings> builder)
     {
@@ -25,10 +25,11 @@ public partial class UserSettings
             .Property(us => us.MenuId)
             .HasColumnName("menu_id");
         builder
-            .Property(us => us.CreatedAt)
+            .Property(us => us.CreatedTimestamp)
             .HasColumnName("created_at")
-            .HasComment("Дата создания")
-            .HasDefaultValue(new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds());
+            .IsRequired()
+            .HasConversion(v => v, v => DateTime.Now)
+            .HasComment("Дата создания");
 
         builder
             .HasOne(us => us.User)
@@ -38,6 +39,5 @@ public partial class UserSettings
             .HasOne(us => us.Menu)
             .WithMany(m => m.UserSettingsList)
             .HasForeignKey(us => us.MenuId);
-        
     }
 }

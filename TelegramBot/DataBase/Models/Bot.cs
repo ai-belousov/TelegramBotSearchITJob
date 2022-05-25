@@ -9,7 +9,7 @@ namespace TelegramBot.DataBase.Models;
 public class Bot
 {
     public int Id { get; set; }
-    public int TelegramBotId { get; set; }
+    public long TelegramBotId { get; set; }
     public string Name { get; set; }
     public List<Menu> Menus { get; set; }
 
@@ -31,5 +31,11 @@ public class Bot
             .HasColumnName("telegram_bot_id")
             .HasComment("id телеграм бота");
         #endregion
+        
+        List<Bot> botsList = new List<Bot>();
+        
+        botsList.Add(new Bot{Id = 1,TelegramBotId = 5179375578, Name = "Поиск IT-вакансий"});
+
+        builder.HasData(botsList);
     }
 }

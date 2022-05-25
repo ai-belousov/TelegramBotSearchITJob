@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -15,7 +16,7 @@ namespace TelegramBot.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    telegram_bot_id = table.Column<int>(type: "integer", nullable: false, comment: "id телеграм бота"),
+                    telegram_bot_id = table.Column<long>(type: "bigint", nullable: false, comment: "id телеграм бота"),
                     name = table.Column<string>(type: "text", nullable: true, comment: "Название бота")
                 },
                 constraints: table =>
@@ -88,7 +89,7 @@ namespace TelegramBot.Migrations
                 {
                     user_id = table.Column<int>(type: "integer", nullable: false),
                     menu_id = table.Column<int>(type: "integer", nullable: false),
-                    created_at = table.Column<int>(type: "integer", nullable: false, defaultValue: 1653381029, comment: "Дата создания")
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, comment: "Дата создания")
                 },
                 constraints: table =>
                 {

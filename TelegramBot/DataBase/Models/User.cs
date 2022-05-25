@@ -37,11 +37,6 @@ public class User
             .HasMaxLength(255)
             .HasDefaultValue(null)
             .HasComment("Почта пользователя");
-
-        #endregion
-
-        #region Настройка связей
-
         #endregion
     }
 }
