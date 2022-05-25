@@ -64,7 +64,7 @@ botClient.StartReceiving(
     );
 var message = botClient.GetMeAsync();
 
-// Console.ReadLine();
+Console.ReadLine();
 
 cts.Cancel(); // выключае бота по завершению
 

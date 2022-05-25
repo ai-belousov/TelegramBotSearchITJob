@@ -62,40 +62,38 @@ public class Menu
 
     private void AddDefaultDataForBotIt(EntityTypeBuilder<Menu> builder)
     {
-        List<Menu> menusList = new List<Menu>();
-        
-        menusList.Add(new Menu{Id = 1, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Java/Scala"});
-        menusList.Add(new Menu{Id = 2, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Python" });
-        menusList.Add(new Menu{Id = 3, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "C#" });
-        menusList.Add(new Menu{Id = 4, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "C/C++" });
-        menusList.Add(new Menu{Id = 5, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Go" });
-        menusList.Add(new Menu{Id = 6, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Ruby" });
-        menusList.Add(new Menu{Id = 7, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "PHP" });
-        menusList.Add(new Menu{Id = 8, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Frontend" });
-        menusList.Add(new Menu{Id = 9, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Node.js" });
-        menusList.Add(new Menu{Id = 10, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "DevOps" });
-        menusList.Add(new Menu{Id = 11, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "QA Manual" });
-        menusList.Add(new Menu{Id = 12, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "QA Auto" });
-        menusList.Add(new Menu{Id = 13, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Data Scientist" });
-        menusList.Add(new Menu{Id = 14, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Product Manager" });
-        menusList.Add(new Menu{Id = 15, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Product Analyst" });
-        menusList.Add(new Menu{Id = 16, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Project Manager" });
-        menusList.Add(new Menu{Id = 17, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "CTO / Architect" });
-        menusList.Add(new Menu{Id = 18, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Design & UX" });
-        menusList.Add(new Menu{Id = 19, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "System Analyst" });
-        menusList.Add(new Menu{Id = 20, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "IT HR / Recruiter" });
-
-        menusList.Add(new Menu{Id = 21, TypeMenuId = TYPE_MENU_FORMAT_OF_WORK, BotId = BOT_ID_IT, Value = "Москва (гибрад или офис)" });
-        menusList.Add(new Menu{Id = 22, TypeMenuId = TYPE_MENU_FORMAT_OF_WORK, BotId = BOT_ID_IT, Value = "Санкт-Петербург (гибрад или офис)" });
-        menusList.Add(new Menu{Id = 23, TypeMenuId = TYPE_MENU_FORMAT_OF_WORK, BotId = BOT_ID_IT, Value = "Полная удаленка" });
-        menusList.Add(new Menu{Id = 24, TypeMenuId = TYPE_MENU_FORMAT_OF_WORK, BotId = BOT_ID_IT, Value = "Релокейт за рубеж" });
-
-        menusList.Add(new Menu{Id = 25, TypeMenuId = TYPE_MENU_SALARY, BotId = BOT_ID_IT, Value = "от 150К ₽/мес" });
-        menusList.Add(new Menu{Id = 26, TypeMenuId = TYPE_MENU_SALARY, BotId = BOT_ID_IT, Value = "от 200К ₽/мес" });
-        menusList.Add(new Menu{Id = 27, TypeMenuId = TYPE_MENU_SALARY, BotId = BOT_ID_IT, Value = "от 250К ₽/мес" });
-        menusList.Add(new Menu{Id = 28, TypeMenuId = TYPE_MENU_SALARY, BotId = BOT_ID_IT, Value = "от 350К ₽/мес" });
-
-        builder.HasData(menusList);
+        builder.HasData(
+            new Menu {Id = 1, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Java/Scala"},
+            new Menu {Id = 2, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Python" },
+            new Menu {Id = 3, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "C#" },
+            new Menu {Id = 4, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "C/C++" },
+            new Menu {Id = 5, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Go" },
+            new Menu {Id = 6, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Ruby" },
+            new Menu {Id = 7, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "PHP" },
+            new Menu {Id = 8, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Frontend" },
+            new Menu {Id = 9, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Node.js" },
+            new Menu {Id = 10, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "DevOps" },
+            new Menu {Id = 11, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "QA Manual" },
+            new Menu {Id = 12, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "QA Auto" },
+            new Menu {Id = 13, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Data Scientist" },
+            new Menu {Id = 14, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Product Manager" },
+            new Menu {Id = 15, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Product Analyst" },
+            new Menu {Id = 16, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Project Manager" },
+            new Menu {Id = 17, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "CTO / Architect" },
+            new Menu {Id = 18, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "Design & UX" },
+            new Menu {Id = 19, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "System Analyst" },
+            new Menu {Id = 20, TypeMenuId = SPECIALITY, BotId = BOT_ID_IT, Value = "IT HR / Recruiter" },
+            
+            new Menu {Id = 21, TypeMenuId = TYPE_MENU_FORMAT_OF_WORK, BotId = BOT_ID_IT, Value = "Москва (гибрад или офис)" },
+            new Menu {Id = 22, TypeMenuId = TYPE_MENU_FORMAT_OF_WORK, BotId = BOT_ID_IT, Value = "Санкт-Петербург (гибрад или офис)" },
+            new Menu {Id = 23, TypeMenuId = TYPE_MENU_FORMAT_OF_WORK, BotId = BOT_ID_IT, Value = "Полная удаленка" },
+            new Menu {Id = 24, TypeMenuId = TYPE_MENU_FORMAT_OF_WORK, BotId = BOT_ID_IT, Value = "Релокейт за рубеж" },
+            
+            new Menu {Id = 25, TypeMenuId = TYPE_MENU_SALARY, BotId = BOT_ID_IT, Value = "от 150К ₽/мес" },
+            new Menu {Id = 26, TypeMenuId = TYPE_MENU_SALARY, BotId = BOT_ID_IT, Value = "от 200К ₽/мес" },
+            new Menu {Id = 27, TypeMenuId = TYPE_MENU_SALARY, BotId = BOT_ID_IT, Value = "от 250К ₽/мес" },
+            new Menu {Id = 28, TypeMenuId = TYPE_MENU_SALARY, BotId = BOT_ID_IT, Value = "от 350К ₽/мес" }
+            );
     }
 }
 

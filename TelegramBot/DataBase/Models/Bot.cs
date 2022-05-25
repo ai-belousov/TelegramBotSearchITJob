@@ -31,11 +31,13 @@ public class Bot
             .HasColumnName("telegram_bot_id")
             .HasComment("id телеграм бота");
         #endregion
-        
-        List<Bot> botsList = new List<Bot>();
-        
-        botsList.Add(new Bot{Id = 1,TelegramBotId = 5179375578, Name = "Поиск IT-вакансий"});
 
-        builder.HasData(botsList);
+        AddDefaultDataForBotIt(builder);
+    }
+    private void AddDefaultDataForBotIt(EntityTypeBuilder<Bot> builder)
+    {
+        builder.HasData(
+            new Bot{ Id = 1, TelegramBotId = 5179375578, Name = "Поиск IT-вакансий" }
+            );
     }
 }

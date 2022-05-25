@@ -25,13 +25,16 @@ public class TypeMenu
             .IsRequired(false)
             .HasComment("Тип меню");
         builder.ToTable("type_menu");
-        
-        List<TypeMenu> typeMenusList = new List<TypeMenu>();
-        
-        typeMenusList.Add(new TypeMenu{Id = 1, Name = "Специальность"});
-        typeMenusList.Add(new TypeMenu{Id = 2, Name = "Формат работы"});
-        typeMenusList.Add(new TypeMenu{Id = 3, Name = "Зарплата"});
-        
-        builder.HasData(typeMenusList);
+
+        AddDefaultDataForBotIt(builder);
+    }
+
+    private void AddDefaultDataForBotIt(EntityTypeBuilder<TypeMenu> builder)
+    {
+        builder.HasData(
+            new TypeMenu{ Id = 1, Name = "Специальность" },
+            new TypeMenu{ Id = 2, Name = "Формат работы" },
+            new TypeMenu{ Id = 3, Name = "Зарплата" }
+            );
     }
 }
