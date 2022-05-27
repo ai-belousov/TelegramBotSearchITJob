@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TelegramBot.DataBase;
+using TelegramBot.Data;
 
 #nullable disable
 
 namespace TelegramBot.Migrations
 {
     [DbContext(typeof(TelegramBotContext))]
-    [Migration("20220525134818_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220525135300_add_default_data_for_telegram_bot_it")]
+    partial class add_default_data_for_telegram_bot_it
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,6 +48,14 @@ namespace TelegramBot.Migrations
                     b.ToTable("bot");
 
                     b.HasComment("Телеграм боты");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Поиск IT-вакансий",
+                            TelegramBotId = 5179375578L
+                        });
                 });
 
             modelBuilder.Entity("TelegramBot.DataBase.Models.Menu", b =>
@@ -84,6 +92,204 @@ namespace TelegramBot.Migrations
                     b.ToTable("menu");
 
                     b.HasComment("Меню(кнопки выбора) бота");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "Java/Scala"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "Python"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "C#"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "C/C++"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "Go"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "Ruby"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "PHP"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "Frontend"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "Node.js"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "DevOps"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "QA Manual"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "QA Auto"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "Data Scientist"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "Product Manager"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "Product Analyst"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "Project Manager"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "CTO / Architect"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "Design & UX"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "System Analyst"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            BotId = 1,
+                            TypeMenuId = 1,
+                            Value = "IT HR / Recruiter"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            BotId = 1,
+                            TypeMenuId = 2,
+                            Value = "Москва (гибрад или офис)"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            BotId = 1,
+                            TypeMenuId = 2,
+                            Value = "Санкт-Петербург (гибрад или офис)"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            BotId = 1,
+                            TypeMenuId = 2,
+                            Value = "Полная удаленка"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            BotId = 1,
+                            TypeMenuId = 2,
+                            Value = "Релокейт за рубеж"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            BotId = 1,
+                            TypeMenuId = 3,
+                            Value = "от 150К ₽/мес"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            BotId = 1,
+                            TypeMenuId = 3,
+                            Value = "от 200К ₽/мес"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            BotId = 1,
+                            TypeMenuId = 3,
+                            Value = "от 250К ₽/мес"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            BotId = 1,
+                            TypeMenuId = 3,
+                            Value = "от 350К ₽/мес"
+                        });
                 });
 
             modelBuilder.Entity("TelegramBot.DataBase.Models.TypeMenu", b =>
@@ -105,6 +311,23 @@ namespace TelegramBot.Migrations
                     b.ToTable("type_menu", (string)null);
 
                     b.HasComment("Типы меню");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Специальность"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Формат работы"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Зарплата"
+                        });
                 });
 
             modelBuilder.Entity("TelegramBot.DataBase.Models.User", b =>

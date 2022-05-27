@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace TelegramBot.DataBase.Models;
+namespace TelegramBot.Data.Models;
 
 [Table("user")]
 [Comment("Пользователи")]

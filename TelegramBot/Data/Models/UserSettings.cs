@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace TelegramBot.DataBase.Models;
+namespace TelegramBot.Data.Models;
 
 [Table("user_settings")]
 [Comment("Настройки пользователей")]
@@ -16,6 +16,7 @@ public partial class UserSettings
 
     public void Configure(EntityTypeBuilder<UserSettings> builder)
     {
+        #region Настройка полей
         builder
             .HasKey(us => new { us.MenuId, us.UserId });
         builder
@@ -39,5 +40,6 @@ public partial class UserSettings
             .HasOne(us => us.Menu)
             .WithMany(m => m.UserSettingsList)
             .HasForeignKey(us => us.MenuId);
+        #endregion
     }
 }

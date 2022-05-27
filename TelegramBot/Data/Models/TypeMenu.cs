@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace TelegramBot.DataBase.Models;
+namespace TelegramBot.Data.Models;
 
 [Table("type_menu")]
 [Comment("Типы меню")]
@@ -14,6 +14,7 @@ public class TypeMenu
     
     public void Configure(EntityTypeBuilder<TypeMenu> builder)
     {
+        #region Настройка полей
         builder                    
             .HasKey(tm => tm.Id);
         builder
@@ -25,7 +26,7 @@ public class TypeMenu
             .IsRequired(false)
             .HasComment("Тип меню");
         builder.ToTable("type_menu");
-
+        #endregion
         AddDefaultDataForBotIt(builder);
     }
 

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace TelegramBot.DataBase.Models;
+namespace TelegramBot.Data.Models;
 
 [Table("menu")]
 [Comment("Меню(кнопки выбора) бота")]
@@ -45,7 +45,6 @@ public class Menu
             .HasColumnName("bot_id")
             .HasComment("id бота");
         #endregion
-        
         #region Настройка связей
         builder
             .HasOne(b => b.TypeMenu)
@@ -56,7 +55,6 @@ public class Menu
             .WithMany(b => b.Menus)
             .HasForeignKey(m => m.BotId);
         #endregion
-        
         AddDefaultDataForBotIt(builder);
     }
 

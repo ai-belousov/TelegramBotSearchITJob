@@ -2,20 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TelegramBot.DataBase;
+using TelegramBot.Data;
 
 #nullable disable
 
 namespace TelegramBot.Migrations
 {
     [DbContext(typeof(TelegramBotContext))]
-    [Migration("20220525135300_add_default_data_for_telegram_bot_it")]
-    partial class add_default_data_for_telegram_bot_it
+    partial class TelegramBotContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,6 +41,12 @@ namespace TelegramBot.Migrations
                         .HasColumnName("telegram_bot_id")
                         .HasComment("id телеграм бота");
 
+                    b.Property<string>("TelegramBotToken")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("telegram_bot_token")
+                        .HasComment("Token телеграм бота");
+
                     b.HasKey("Id");
 
                     b.ToTable("bot");
@@ -54,7 +58,8 @@ namespace TelegramBot.Migrations
                         {
                             Id = 1,
                             Name = "Поиск IT-вакансий",
-                            TelegramBotId = 5179375578L
+                            TelegramBotId = 5179375578L,
+                            TelegramBotToken = "AAHgamcmzMRG1M39RFvGPglgXKxuD44lGd8"
                         });
                 });
 

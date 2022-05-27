@@ -10,47 +10,46 @@ using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;using Telegram.Bot.Types.ReplyMarkups;
-using TelegramBot.DataBase;
-using model = TelegramBot.DataBase.Models;
+using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
+using TelegramBot.Data;
+using model = TelegramBot.Data.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TelegramBot.Services;
+using TelegramBot.Services.Interfaces;
+
+
+// new ITBot();
 
 var config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
 // builder.SetBasePath(Directory.GetCurrentDirectory()); // установка пути к текущему каталогу
 // builder.AddJsonFile("appSettings.json"); // получаем конфигурацию из файла appsettings.json
 // var config = builder.Build(); // создаем конфигурацию
 
+
 IHost hostBuilder = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
         services
             .AddDbContext<TelegramBotContext>(options =>
-                options.UseNpgsql(config.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(config.GetConnectionString("DefaultConnection")))
+            .AddSingleton<IBotService, BotService>()
+            // .AddSingleton<TelegramBotClient>()
+            // .AddTransient<>()
+            ;
+        
     }).Build();
-
-// static void Main(string[] args)
-//     => CreateHostBuilder(args).Build().Run();
-//
-//
-// // EF Core uses this method at design time to access the DbContext
-// static IHostBuilder CreateHostBuilder(string[] args)
-//     => Host.CreateDefaultBuilder(args)
-//         .ConfigureHostConfiguration(
-//             webBuilder => webBuilder.UseStartup<Startup>());
-
-
-
-// string connectionString = config.GetConnectionString("DefaultConnection"); // получаем строку подключения
-// var optionsBuilder = new DbContextOptionsBuilder<TelegramBotContext>();
-// var options = optionsBuilder.UseNpgsql(connectionString).Options;
-
 string token = config.GetSection("TelegramBot").GetRequiredSection("Token").Value; // получаем ключ для телеграм бота
+
+
+
 
 
 // инициализация Бота
 var botClient = new TelegramBotClient(token);
+
 using var cts = new CancellationTokenSource();
 var receiverOptions = new ReceiverOptions
 {

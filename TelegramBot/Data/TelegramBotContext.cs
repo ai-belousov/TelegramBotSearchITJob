@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TelegramBot.DataBase.Models;
+using TelegramBot.Data.Models;
 
-namespace TelegramBot.DataBase;
+namespace TelegramBot.Data;
 
 public sealed class TelegramBotContext : DbContext
 {
