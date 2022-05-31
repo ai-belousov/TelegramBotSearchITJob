@@ -36,6 +36,7 @@ IHost hostBuilder = Host.CreateDefaultBuilder(args)
             .AddDbContext<TelegramBotContext>(options =>
                 options.UseNpgsql(config.GetConnectionString("DefaultConnection")))
             .AddSingleton<IBotService, BotService>()
+            .AddAutoMapper(typeof(Mapping))
             // .AddSingleton<TelegramBotClient>()
             // .AddTransient<>()
             ;
