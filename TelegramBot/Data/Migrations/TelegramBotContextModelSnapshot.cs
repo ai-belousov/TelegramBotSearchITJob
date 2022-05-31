@@ -22,7 +22,7 @@ namespace TelegramBot.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("TelegramBot.DataBase.Models.Bot", b =>
+            modelBuilder.Entity("TelegramBot.Data.Models.Bot", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,7 +63,7 @@ namespace TelegramBot.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TelegramBot.DataBase.Models.Menu", b =>
+            modelBuilder.Entity("TelegramBot.Data.Models.Menu", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -297,7 +297,7 @@ namespace TelegramBot.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TelegramBot.DataBase.Models.TypeMenu", b =>
+            modelBuilder.Entity("TelegramBot.Data.Models.TypeMenu", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -335,7 +335,7 @@ namespace TelegramBot.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TelegramBot.DataBase.Models.User", b =>
+            modelBuilder.Entity("TelegramBot.Data.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -356,8 +356,8 @@ namespace TelegramBot.Migrations
                         .HasColumnName("nickname")
                         .HasComment("Ник пользователя");
 
-                    b.Property<int>("UserBotId")
-                        .HasColumnType("integer")
+                    b.Property<decimal>("UserBotId")
+                        .HasColumnType("numeric(20,0)")
                         .HasColumnName("user_bot_id")
                         .HasComment("Пользователи телеграм");
 
@@ -368,7 +368,7 @@ namespace TelegramBot.Migrations
                     b.HasComment("Пользователи");
                 });
 
-            modelBuilder.Entity("TelegramBot.DataBase.Models.UserSettings", b =>
+            modelBuilder.Entity("TelegramBot.Data.Models.UserSettings", b =>
                 {
                     b.Property<int>("MenuId")
                         .HasColumnType("integer")
@@ -392,15 +392,15 @@ namespace TelegramBot.Migrations
                     b.HasComment("Настройки пользователей");
                 });
 
-            modelBuilder.Entity("TelegramBot.DataBase.Models.Menu", b =>
+            modelBuilder.Entity("TelegramBot.Data.Models.Menu", b =>
                 {
-                    b.HasOne("TelegramBot.DataBase.Models.Bot", "Bot")
+                    b.HasOne("TelegramBot.Data.Models.Bot", "Bot")
                         .WithMany("Menus")
                         .HasForeignKey("BotId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TelegramBot.DataBase.Models.TypeMenu", "TypeMenu")
+                    b.HasOne("TelegramBot.Data.Models.TypeMenu", "TypeMenu")
                         .WithMany("Menus")
                         .HasForeignKey("TypeMenuId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -411,15 +411,15 @@ namespace TelegramBot.Migrations
                     b.Navigation("TypeMenu");
                 });
 
-            modelBuilder.Entity("TelegramBot.DataBase.Models.UserSettings", b =>
+            modelBuilder.Entity("TelegramBot.Data.Models.UserSettings", b =>
                 {
-                    b.HasOne("TelegramBot.DataBase.Models.Menu", "Menu")
+                    b.HasOne("TelegramBot.Data.Models.Menu", "Menu")
                         .WithMany("UserSettingsList")
                         .HasForeignKey("MenuId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TelegramBot.DataBase.Models.User", "User")
+                    b.HasOne("TelegramBot.Data.Models.User", "User")
                         .WithMany("UserSettingsList")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -430,22 +430,22 @@ namespace TelegramBot.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TelegramBot.DataBase.Models.Bot", b =>
+            modelBuilder.Entity("TelegramBot.Data.Models.Bot", b =>
                 {
                     b.Navigation("Menus");
                 });
 
-            modelBuilder.Entity("TelegramBot.DataBase.Models.Menu", b =>
+            modelBuilder.Entity("TelegramBot.Data.Models.Menu", b =>
                 {
                     b.Navigation("UserSettingsList");
                 });
 
-            modelBuilder.Entity("TelegramBot.DataBase.Models.TypeMenu", b =>
+            modelBuilder.Entity("TelegramBot.Data.Models.TypeMenu", b =>
                 {
                     b.Navigation("Menus");
                 });
 
-            modelBuilder.Entity("TelegramBot.DataBase.Models.User", b =>
+            modelBuilder.Entity("TelegramBot.Data.Models.User", b =>
                 {
                     b.Navigation("UserSettingsList");
                 });
