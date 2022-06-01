@@ -12,10 +12,10 @@ using TelegramBot.Data;
 namespace TelegramBot.Migrations
 {
     [DbContext(typeof(TelegramBotContext))]
-    [Migration("20220531145653_change_column_name_on_the_chat_id_in_user_table")]
+    [Migration("20220601112557_change_column_name_on_the_chat_id_in_user_table")]
     partial class change_column_name_on_the_chat_id_in_user_table
     {
-        protected void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -346,6 +346,11 @@ namespace TelegramBot.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<decimal>("ChatId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("chat_id")
+                        .HasComment("Пользователи телеграм");
+
                     b.Property<string>("Email")
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)")
@@ -357,11 +362,6 @@ namespace TelegramBot.Migrations
                         .HasColumnType("text")
                         .HasColumnName("nickname")
                         .HasComment("Ник пользователя");
-
-                    b.Property<decimal>("UserBotId")
-                        .HasColumnType("numeric(20,0)")
-                        .HasColumnName("user_bot_id")
-                        .HasComment("Пользователи телеграм");
 
                     b.HasKey("Id");
 

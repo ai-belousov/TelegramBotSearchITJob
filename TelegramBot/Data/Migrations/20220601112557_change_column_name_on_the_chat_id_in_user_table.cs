@@ -8,12 +8,18 @@ namespace TelegramBot.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
+            migrationBuilder.RenameColumn(
+                name: "user_bot_id",
+                table: "user",
+                newName: "chat_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
+            migrationBuilder.RenameColumn(
+                name: "chat_id",
+                table: "user",
+                newName: "user_bot_id");
         }
     }
 }

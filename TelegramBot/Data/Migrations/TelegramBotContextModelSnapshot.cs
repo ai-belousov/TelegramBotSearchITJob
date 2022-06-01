@@ -344,6 +344,11 @@ namespace TelegramBot.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<decimal>("ChatId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("chat_id")
+                        .HasComment("Пользователи телеграм");
+
                     b.Property<string>("Email")
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)")
@@ -355,11 +360,6 @@ namespace TelegramBot.Migrations
                         .HasColumnType("text")
                         .HasColumnName("nickname")
                         .HasComment("Ник пользователя");
-
-                    b.Property<decimal>("UserBotId")
-                        .HasColumnType("numeric(20,0)")
-                        .HasColumnName("user_bot_id")
-                        .HasComment("Пользователи телеграм");
 
                     b.HasKey("Id");
 

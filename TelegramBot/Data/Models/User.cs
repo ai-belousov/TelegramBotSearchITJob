@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using TelegramBot.Data.Models;
 
 namespace TelegramBot.Data.Models;
 
@@ -10,7 +11,7 @@ public class User
 {
     public int Id { get; set; }
     public string Nickname { get; set; }
-    public ulong UserBotId { get; set; }
+    public ulong ChatId { get; set; }
     public string? Email { get; set; }
     public List<UserSettings> UserSettingsList { get; set; }
 
@@ -27,9 +28,9 @@ public class User
             .HasColumnName("nickname")
             .HasComment("Ник пользователя");
         builder
-            .Property(u => u.UserBotId)
+            .Property(u => u.ChatId)
             .IsRequired()
-            .HasColumnName("user_bot_id")
+            .HasColumnName("chat_id")
             .HasComment("Пользователи телеграм");
         builder
             .Property(u => u.Email)
