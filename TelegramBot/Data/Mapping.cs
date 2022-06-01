@@ -11,6 +11,7 @@ public class Mapping : Profile
     {
         CreateMap<Bot, BotDto>();
         CreateMap<User, UserDto>();
+        CreateMap<Menu, MenuDto>();
         CreateMap<UserSettings, UserSettingsDto>();
         CreateMap<TypeMenu, TypeMenuDto>();
     }
