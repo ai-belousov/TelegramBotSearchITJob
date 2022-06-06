@@ -11,7 +11,7 @@ using TelegramBot.Data;
 
 namespace TelegramBot.Migrations
 {
-    [DbContext(typeof(TelegramBotContext))]
+    [DbContext(typeof(Context))]
     [Migration("20220527122824_add_column_telegram_bot_token_to_bot_table")]
     partial class add_column_telegram_bot_token_to_bot_table
     {

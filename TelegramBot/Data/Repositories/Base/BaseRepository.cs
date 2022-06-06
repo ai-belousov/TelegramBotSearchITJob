@@ -5,10 +5,10 @@ namespace TelegramBot.Repositories.Base;
 
 public class BaseRepository 
 {
-    protected readonly TelegramBotContext Db;
+    protected readonly Context Db;
     protected readonly IMapper Mapper;
 
-    public BaseRepository(TelegramBotContext context, IMapper mapper)
+    public BaseRepository(Context context, IMapper mapper)
     {
         Db = context;
         Mapper = mapper;

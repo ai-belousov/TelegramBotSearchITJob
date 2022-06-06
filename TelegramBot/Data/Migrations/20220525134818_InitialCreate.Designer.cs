@@ -11,7 +11,7 @@ using TelegramBot.Data;
 
 namespace TelegramBot.Migrations
 {
-    [DbContext(typeof(TelegramBotContext))]
+    [DbContext(typeof(Context))]
     [Migration("20220525134818_InitialCreate")]
     partial class InitialCreate
     {

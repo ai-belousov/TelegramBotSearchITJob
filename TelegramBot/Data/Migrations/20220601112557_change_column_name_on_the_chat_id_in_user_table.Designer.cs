@@ -11,7 +11,7 @@ using TelegramBot.Data;
 
 namespace TelegramBot.Migrations
 {
-    [DbContext(typeof(TelegramBotContext))]
+    [DbContext(typeof(Context))]
     [Migration("20220601112557_change_column_name_on_the_chat_id_in_user_table")]
     partial class change_column_name_on_the_chat_id_in_user_table
     {

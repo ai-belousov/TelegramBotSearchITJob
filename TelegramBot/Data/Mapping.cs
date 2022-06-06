@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using TelegramBot.Data.Models;
+using TelegramBot.Data.Entities;
 using TelegramBot.Repositories.DTO;
-using User = Telegram.Bot.Types.User;
 
 namespace TelegramBot.Data;
 

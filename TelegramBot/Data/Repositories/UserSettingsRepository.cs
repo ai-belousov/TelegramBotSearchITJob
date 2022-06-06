@@ -6,7 +6,7 @@ namespace TelegramBot.Repositories;
 
 public class UserSettingsRepository : BaseRepository
 {
-    public UserSettingsRepository(TelegramBotContext context, IMapper mapper) : base(context, mapper)
+    public UserSettingsRepository(Context context, IMapper mapper) : base(context, mapper)
     {
     }
 }

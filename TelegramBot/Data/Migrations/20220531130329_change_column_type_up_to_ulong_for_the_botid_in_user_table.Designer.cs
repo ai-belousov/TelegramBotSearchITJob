@@ -11,7 +11,7 @@ using TelegramBot.Data;
 
 namespace TelegramBot.Migrations
 {
-    [DbContext(typeof(TelegramBotContext))]
+    [DbContext(typeof(Context))]
     [Migration("20220531130329_change_column_type_up_to_ulong_for_the_botid_in_user_table")]
     partial class change_column_type_up_to_ulong_for_the_botid_in_user_table
     {

@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TelegramBot.Data.Models;
+using TelegramBot.Data.Entities;
 
 namespace TelegramBot.Data;
 
-public sealed class TelegramBotContext : DbContext
+public sealed class Context : DbContext
 {
     // подключаем таблицы из папки models
     public DbSet<User> Users => Set<User>();
@@ -15,7 +15,7 @@ public sealed class TelegramBotContext : DbContext
     public DbSet<Menu> Menus => Set<Menu>();
     public DbSet<UserSettings> UsersSettings => Set<UserSettings>();
 
-    public TelegramBotContext(DbContextOptions<TelegramBotContext> options) : base(options)
+    public Context(DbContextOptions<Context> options) : base(options)
     {
         
     }

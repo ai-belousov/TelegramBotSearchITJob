@@ -11,7 +11,7 @@ using TelegramBot.Data;
 
 namespace TelegramBot.Migrations
 {
-    [DbContext(typeof(TelegramBotContext))]
+    [DbContext(typeof(Context))]
     [Migration("20220525135300_add_default_data_for_telegram_bot_it")]
     partial class add_default_data_for_telegram_bot_it
     {

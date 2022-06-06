@@ -1,161 +1,74 @@
-﻿// using System;
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Telegram.Bot;
-// using System.Collections.Generic;
-// using System.Text;
-// using System.Globalization;
-// using System.Threading;
-// using System.Threading.Tasks;
-using Telegram.Bot.Exceptions;
-using Telegram.Bot.Extensions.Polling;
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
 using TelegramBot.Data;
-using model = TelegramBot.Data.Models;
+using model = TelegramBot.Data.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TelegramBot.Services;
-using TelegramBot.Services.Interfaces;
-
-
-// new ITBot();
+using TelegramBot.Helpers;
+using TelegramBot.Helpers.Interfaces;
+using TelegramBot.Repositories;
+using TelegramBot.Repositories.Interfaces;
 
 var config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
-// builder.SetBasePath(Directory.GetCurrentDirectory()); // установка пути к текущему каталогу
-// builder.AddJsonFile("appSettings.json"); // получаем конфигурацию из файла appsettings.json
-// var config = builder.Build(); // создаем конфигурацию
 
-
+//  *Service Тип сервиса*	    *В рамках одного http-запроса*      *Для двух разных http-запросов*  
+//
+//  *Transient*	                Новый инстанс	                    Новый инстанс
+//  *Scoped*                    Уже существующий инстанс            Новый инстанс
+//  *Singleton*                 Уже существующий инстанс            Уже существующий инстанс
 IHost hostBuilder = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
         services
-            .AddDbContext<TelegramBotContext>(options =>
-                options.UseNpgsql(config.GetConnectionString("DefaultConnection")))
-            .AddSingleton<IBotService, BotService>()
+            .AddDbContext<Context>(options =>
+                options.UseNpgsql(config.GetConnectionString("DefaultConnection")!))
             .AddAutoMapper(typeof(Mapping))
+            //repository
+            .AddScoped<IBotRepository, BotRepository>()
+            // .AddScoped<IUserRepository, UserRepository>()
+            // .AddScoped<IBotRepository, BotRepository>()
+            // .AddScoped<IBotRepository, BotRepository>()
+            // .AddSingleton<IBotManagerHelper, BotManagerHelper>()
+            // .AddSingleton<IBotService, BotService>()
             // .AddSingleton<TelegramBotClient>()
+            .AddSingleton<CancellationTokenSource>()
+            .AddSingleton(
+                new TelegramBotClient(
+                    config
+                        .GetSection("TelegramBot")
+                        .GetRequiredSection("Token")
+                        .Value!
+                    )
+                )
+            .AddSingleton<IBotHelper, BotHelper>()
             // .AddTransient<>()
             ;
-        
     }).Build();
-string token = config.GetSection("TelegramBot").GetRequiredSection("Token").Value; // получаем ключ для телеграм бота
+
+hostBuilder.Services.GetRequiredService<IBotHelper>().StartBot();
 
 
+// var botClient = hostBuilder.Services.GetRequiredService<TelegramBotClient>();
+// botClient.StartReceiving(
+//     HandleUpdateAsync,
+//     HandleErrorAsync,
+//     new ReceiverOptions
+//     {
+//         AllowedUpdates = { } // receive all update types
+//     },
+//     cancellationToken: cts.Token
+// );
+// botClient.GetMeAsync();
+// hostBuilder.Services.GetRequiredService<IBotManagerHelper>().RunBots();
+// services
+// Console.ReadLine();
+// cts.Cancel();
 
-
-
-// инициализация Бота
-var botClient = new TelegramBotClient(token);
-
-using var cts = new CancellationTokenSource();
-var receiverOptions = new ReceiverOptions
-{
-    AllowedUpdates = { } // receive all update types
-};
-botClient.StartReceiving(
-    HandleUpdateAsync,
-    HandleErrorAsync,
-    receiverOptions,
-    cancellationToken: cts.Token
-    );
-var message = botClient.GetMeAsync();
-
-Console.ReadLine();
-
-cts.Cancel(); // выключае бота по завершению
-
-async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
-{
-    // Only process Message updates: https://core.telegram.org/bots/api#message
-    if (update.Type != UpdateType.Message)
-        return;
-    // Only process text messages
-    if (update.Message!.Type != MessageType.Text)
-        return;
-        
-    var chatId = update.Message.Chat.Id;
-    var messageText = update.Message.Text;
-    var up = update.Message;
-    var lastName = update.Message.Chat.LastName;
-        
-    Console.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
-        
-    // Echo received message text
-    try{
-        // Message sentMessage = await botClient.SendTextMessageAsync(
-        //     chatId: chatId,
-        //     text: "Choose a response",
-        //
-        //     cancellationToken: cancellationToken);
-        
-        Message sentMessage = await botClient.SendTextMessageAsync(
-            chatId: chatId,
-            text: lastName + " said:\n" + messageText,
-            replyMarkup: GetButtons(),
-            cancellationToken: cancellationToken);
-        GetInlineButtons();
-    }
-    catch (ApiRequestException e)
-    {
-        Console.WriteLine(e);
-        throw;
-    }
-}
-        
-Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
-{
-    var ErrorMessage = exception switch
-    {
-        ApiRequestException apiRequestException
-            => $"Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}",
-        _ => exception.ToString()
-    };
-        
-    Console.WriteLine(ErrorMessage);
-    return Task.CompletedTask;
-}
-
-IReplyMarkup GetButtons()
-{
-    ReplyKeyboardMarkup replyKeyboardMarkup = new(new []
-    {
-        new KeyboardButton[] { },
-    })
-    {
-        ResizeKeyboard = true
-    };
-    
-    return replyKeyboardMarkup;
-}
-IReplyMarkup GetInlineButtons()
-{
-    InlineKeyboardMarkup inlineKeyboard = new(new []
-    {
-        // first row
-        new []
-        {
-            InlineKeyboardButton.WithCallbackData(text: "1.1", callbackData: "11"),
-            InlineKeyboardButton.WithCallbackData(text: "1.2", callbackData: "12"),
-        },
-        // second row
-        new []
-        {
-            InlineKeyboardButton.WithCallbackData(text: "2.1", callbackData: "21"),
-            InlineKeyboardButton.WithCallbackData(text: "2.2", callbackData: "22"),
-        },
-    });
-
-    return inlineKeyboard;
-}
-
-// var tom = new model.User { BotUserId = 6541654, Email = "email@first.ru" };
-// var alice = new model.User { BotUserId = 99494, Email = "email@second.ru" };
+// var tom = new model.User { Email = "email@first.ru" };
+// var alice = new model.User { Email = "email@second.ru" };
 //
-// var b = hostBuilder.Build().Services.GetRequiredService<TelegramBotContext>();
+// var b = hostBuilder.Services.GetRequiredService<TelegramBotContext>();
 // var users = b.Users;
 //
 // users.Add(tom);
@@ -165,5 +78,68 @@ IReplyMarkup GetInlineButtons()
 //
 // foreach (model.User user in users)
 // {
-//     Console.WriteLine($"{user.Id}.{user.BotUserId} - {user.Email}");
+//     Console.WriteLine($"{user.Id}. - {user.Email}");
 // }
+
+// string token = config.GetSection("TelegramBot").GetRequiredSection("Token").Value; // получаем ключ для телеграм бота
+
+// var client = services.GetRequiredService<DiscordShardedClient>();
+
+// // инициализация Бота
+// var botClient = new TelegramBotClient(token);
+//
+// using var cts = new CancellationTokenSource();
+// var receiverOptions = new ReceiverOptions
+// {
+//     AllowedUpdates = { } // receive all update types
+// };
+// botClient.StartReceiving(
+//     HandleUpdateAsync,
+//     HandleErrorAsync,
+//     receiverOptions,
+//     cancellationToken: cts.Token
+//     );
+// var message = botClient.GetMeAsync();
+//
+// // Console.ReadLine();
+//
+// cts.Cancel(); // выключает бота по завершению
+
+
+
+
+
+
+// IReplyMarkup GetButtons()
+// {
+//     ReplyKeyboardMarkup replyKeyboardMarkup = new(new []
+//     {
+//         new KeyboardButton[] { },
+//     })
+//     {
+//         ResizeKeyboard = true
+//     };
+//     
+//     return replyKeyboardMarkup;
+// }
+// IReplyMarkup GetInlineButtons()
+// {
+//     InlineKeyboardMarkup inlineKeyboard = new(new []
+//     {
+//         // first row
+//         new []
+//         {
+//             InlineKeyboardButton.WithCallbackData(text: "1.1", callbackData: "11"),
+//             InlineKeyboardButton.WithCallbackData(text: "1.2", callbackData: "12"),
+//         },
+//         // second row
+//         new []
+//         {
+//             InlineKeyboardButton.WithCallbackData(text: "2.1", callbackData: "21"),
+//             InlineKeyboardButton.WithCallbackData(text: "2.2", callbackData: "22"),
+//         },
+//     });
+//
+//     return inlineKeyboard;
+// }
+

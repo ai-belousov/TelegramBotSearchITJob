@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TelegramBot.Data.Models;
 
-namespace TelegramBot.Data.Models;
+namespace TelegramBot.Data.Entities;
 
 [Table("user")]
 [Comment("Пользователи")]

@@ -10,8 +10,8 @@ using TelegramBot.Data;
 
 namespace TelegramBot.Migrations
 {
-    [DbContext(typeof(TelegramBotContext))]
-    partial class TelegramBotContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(Context))]
+    partial class ContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -49,7 +49,7 @@ namespace TelegramBot.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("bot");
+                    b.ToTable("bot", (string)null);
 
                     b.HasComment("Телеграм боты");
 
@@ -94,7 +94,7 @@ namespace TelegramBot.Migrations
 
                     b.HasIndex("TypeMenuId");
 
-                    b.ToTable("menu");
+                    b.ToTable("menu", (string)null);
 
                     b.HasComment("Меню(кнопки выбора) бота");
 
@@ -363,7 +363,7 @@ namespace TelegramBot.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("user");
+                    b.ToTable("user", (string)null);
 
                     b.HasComment("Пользователи");
                 });
@@ -387,7 +387,7 @@ namespace TelegramBot.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("user_settings");
+                    b.ToTable("user_settings", (string)null);
 
                     b.HasComment("Настройки пользователей");
                 });
